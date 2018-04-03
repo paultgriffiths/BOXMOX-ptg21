@@ -10,24 +10,24 @@ emi <- read.csv("Emissions.csv", header=TRUE, sep="", skip=3)
 pht <- read.csv("PhotolysisRates.csv", header=TRUE, sep="", skip=3)
 env <- read.csv("Environment.csv", header=TRUE, sep="", skip=3)
 
-speccols <- c(O3="black", "Ox"="purple", NOx="red", CH2O="green", HNO3="blue", N2O5="pink")
+speccols <- c(O3="black", "Ox"="purple", NOx="red", CH2O="green", HNO3="ISOP", N2O5="pink")
 
 dat[names(dat) != "time"] <- dat[names(dat) != "time"] * 1e3
 
 png(file="pbl_diurnal_cycle.png", width=7, height=4, units="in", res=144)
 par(mar=c(4,2.75,2.5,2.75), mgp=c(2,1,0))
-plot(dat$time, dat$O3, type="l", ylim=c(0, max(dat$O3)*1.25), xlab="time (h)",
+plot(dat$time, dat$O3, type="l", ylim=c(0, max(dat$O3)*500.), xlab="time (h)",
     ylab="", xaxs="i", yaxs="i", axes=FALSE, col=speccols["O3"],
     main="PBL diurnal evolution")
 grid(lwd=0.4)
 nox <- dat$NO + dat$NO2
 ox <- dat$O3 + dat$NO2
-scaler <- 3+1/3
+scaler <- 19+1/3
 lines(dat$time, ox, col=speccols["Ox"], lty=3, lw=2)
 lines(dat$time, nox*scaler, col=speccols["NOx"])
 lines(dat$time, dat$CH2O*scaler, col=speccols["CH2O"])
 #lines(dat$time, dat$N2O5*scaler, col=speccols["N2O5"])
-lines(dat$time, dat$HNO3*scaler, col=speccols["HNO3"])
+lines(dat$time, dat$ISOP*scaler, col=speccols["ISOP"])
 lines(env$time, env$PBLH/1e2, lwd=4, col=rgb(0,0,1, alpha=0.3))
 
 simhours <- 1:max(floor(dat$time))
@@ -44,14 +44,14 @@ legend("top", cex=0.8, legend=c(
         expression(c(NO[x])),
         expression(c(CH[2]*O)),
 #        expression(c(N[2]*O[5])),
-        expression(c(HNO[3])),
+        expression(c(ISOP)),
         expression(NO[x]~emissions),
         expression(J[NO[2]]),
 "PBL HT / m "
 ),
         lty=c(1,3,1,1,1,1,2,1),
         lwd=c(1,2,1,1,1,1,1,3),
-    col=c(speccols[c("O3", "Ox", "NOx", "CH2O", "N2O5", "HNO3")], "grey",  rgb(0,0,1, alpha=0.3)), bty="n",
+    col=c(speccols[c("O3", "Ox", "NOx", "CH2O", "N2O5", "ISOP")], "grey",  rgb(0,0,1, alpha=0.3)), bty="n",
     ncol=4, xpd=NA, inset=-0.0)
 
 mtext(side=3, line=0.25, adj=-0.1, text=expression(O[3]/O[x]~(ppbv)))
