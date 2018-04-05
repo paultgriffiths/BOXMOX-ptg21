@@ -19,46 +19,49 @@ temp.diurnal <- function(offset, amplitude, period, time){
   ifelse (time>6. & time < 18., offset+amplitude*sin(2*pi*(time-6)/(period)), offset)
 }
 
-# nb that R has two ways of dealing with things
-# 1. if the input is a vector - then use ifelse (anthing with dataframes)
-# 2. if the input is a numeric
-
-temp.diurnal.2 <- function(offset, amplitude, period, time){
-  # this function works with an input value
-  if (time>6. & time <18.){ 
-    offset+amplitude*sin(2*pi*(time-6.)/(period))} else
-    offset
-}
-
 #
 # PLOT THE OUTPUT ####
 # 
-
 # this will work as the input (time) is a vector
-plot(temp.diurnal(offset=298., amplitude = 10., period=24., env.data$time))
-
-# the code below won't work because the input is a vector
-# if you look at the error message if you do run it
-# you'll see R can't cope ('only the first element will be used') 
-# plot(temp.diurnal.2(offset=298., amplitude = 10., period=24., 1:24))
+#plot(temp.diurnal(offset=298., amplitude = 10., period=24., env.data$time))
 
 #
 # generate the output data ####
 #
 # with 10 K amplitude
-env.data$TEMP <- temp.diurnal(offset=298., amplitude = 10., period=24., env.data$time)
 
-#or
 
-# with constant T (ie amplitude = 0.)
-env.data$TEMP <- temp.diurnal(offset=298., amplitude = 0., period=24., env.data$time)
+# run the box model with initial conditions generated using a script
 
-#
-# write the output to a file #####
-# 
-# we first write the data that BOXMOX requires
-# note boxmox has special requirements for the first few lines, then the data come after that
-header="2\n0\n2"
-writeLines(header,"Environment.csv")
-# then append the data to this file
-write.table(env.data, file ="Environment.csv", row.names=FALSE, sep=" ", append=TRUE, quote = FALSE)
+for (temp in seq(298., 338., 10.)) {
+  # create the environment data to be written
+  env.data$TEMP <-
+    temp.diurnal(
+      offset = 298.,
+      amplitude = 10.,
+      period = 24.,
+      env.data$time
+    )
+  
+  
+  # write the output to a file #####
+  # we first write the data that BOXMOX requires
+  # note boxmox has special requirements for the first few lines, then the data come after that
+  header = "2\n0\n2"
+  writeLines(header, "Environment.csv")
+  # then append the data to this file
+  write.table(
+    env.data,
+    file = "Environment.csv",
+    row.names = FALSE,
+    sep = " ",
+    append = TRUE,
+    quote = FALSE
+  )
+  # run boxmox
+  system("./MOZART_4.exe", wait = TRUE)
+  # filename to move the data to
+  outfile <- paste("MOZART_4.conc.temp_",temp, sep='')
+  # move the data
+  system(paste("mv","MOZART_4.conc",outfile))
+}
