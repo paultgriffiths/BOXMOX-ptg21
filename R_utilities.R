@@ -61,7 +61,7 @@ for (temp in seq(298., 338., 10.)) {
            system(paste(cmd, "-p", path, model, "-wait", sep=' '))
            
            # filename to move the data to - change the directory
-           output.file <- paste("/home/pt_gr/boxmox/boxmox/bin/pbl_diurnal_cycle/MOZART_4.conc.temp_", temp, sep = '')
+           output.file <- paste("/home/", user, "/boxmox/boxmox/bin/pbl_diurnal_cycle/MOZART_4.conc.temp_", temp, sep = '')
            
            # move the data out of the way
            cmd <- "c:\\cygwin64\\bin\\bash.exe -l -c 'mv"
