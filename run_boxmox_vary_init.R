@@ -65,9 +65,6 @@ for (init.no in seq(1., 2., 1.)) {
                # run boxmox
                system("./MOZART_4.exe", wait = TRUE)
                
-               # filename to move the data to
-               
-               
                # move the data out of the way
                system(paste("mv", "MOZART_4.conc", output.file, sep = ' '))
                
