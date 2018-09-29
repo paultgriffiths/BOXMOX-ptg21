@@ -1,7 +1,7 @@
 &BOXMOX
   tstart     =      0.0, ! start time in seconds
   tend       = 345600.0, ! end time in seconds
-  dt         =    600.0, ! time step in seconds
+  dt         =   300.0, ! time step in seconds
   lverbose   =  .FALSE., ! verbose output?
   iturb      =        2, ! turbulent mixing option
 /
