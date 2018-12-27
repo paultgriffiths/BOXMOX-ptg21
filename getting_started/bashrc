@@ -1,0 +1,18 @@
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# history
+export HISTFILESIZE=3000 # the bash history should save 3000 commands
+export HISTCONTROL=ignoredups
+
+# correct spelling and case errors
+shopt -s cdspell
+shopt -s nocaseglob
+
+alias rm='rm -i'
+
+#export LANG=UTF-8
+export TERM=xterm-256color
+
+export KPP_HOME=/home/$USER/boxmox
+export PATH=$KPP_HOME/bin:$KPP_HOME/boxmox/bin:$PATH
