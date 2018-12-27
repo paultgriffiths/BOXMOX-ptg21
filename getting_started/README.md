@@ -15,7 +15,7 @@ http://davidcarslaw.github.io/openair/reference/polarPlot.html
 
 In fact, here is a plot I made of Shahrul's ozone data
 
-![alt text](https://github.com/ptg21/boxmox_getting_started/blob/master/Rplot.png)
+![alt text](https://github.com/ptg21/boxmox_getting_started/blob/master/getting_started/Rplot.png)
 
 
 SETUP
