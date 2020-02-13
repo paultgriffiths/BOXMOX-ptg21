@@ -1,10 +1,14 @@
 # prep the ubuntu machine
 
+```
 sudo apt-get install bison byacc flex wget gfortran make
+```
 
 # download the install_BOXMOX bash script
 
+```
 cp /mnt/c/Users/pt_gr/Downloads/install_BOXMOX.bash ~/
+```
 
 # execute
 
