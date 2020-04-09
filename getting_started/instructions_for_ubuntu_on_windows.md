@@ -13,6 +13,7 @@ cp /mnt/c/Users/pt_gr/Downloads/install_BOXMOX.bash ~/
 # execute
 
 ```
+chmod +x install_BOXMOX.bash
 ./install_BOXMOX.bash
 ```
 
